@@ -68,51 +68,29 @@ Every user on our platform is a creator - each user creates their memories in th
 
 [TODO: Bonding curves and mathematics motivated by AI monetization principles]
 
-
 Rewards Model (Incentives):
 
-Every creator has a wallet to track their MATs - this is the currency for the network. Initially, MATs will be rewarded to creators’ and fans’ as incentives for user actions that encourage user engagements or improve the quality of the AIs. MAT+ are positive rewards or incentives in the system, the value of MAT will grow as more stable currencies are staked against the network.
-1. New creators may earn MATs+ for completing one-time milestones: completing curated onboarding experience, connecting more feed sources to their stacks.
-2. Creators may earn MATs+ for creating memory blocks (stacking rewards).
-3. Fans may earn MATs+ for accessing Personal AIs (recalling rewards).
+Every creator has a wallet to track their MATs - this is the currency for the network. Initially, MATs will be rewarded to creators and fans as incentives for user actions that encourage user engagement or improve the quality of the AIs.
+1. New creators may earn MATs for completing one-time milestones, eg. completing curated onboarding experience, connecting more feed sources to their stacks.
+2. Creators may earn MATs for creating memory blocks (stacking rewards).
+3. Fans may earn MATs for accessing Personal AIs (recalling rewards).
 
 Token Model:
 
-Every creator has an AIP-coin associated with their Personal AI - this is the value of the creator’s Personal AI. Initially, the stable currency that is put into the system against 
-1. A subscription is a must to access any AIP from any platform. Ex: To add an AIP to a google doc to collaborate with. 
-
-Rewards Model (User Journey):
-
-The upgrade will be an in-app experience. From the website, there will be one CTA for users to get in which is by purchasing AIP (similar to superhuman).  The “signup” will be part of the CNUX experience (until we decide not to). 	
-
-A few companies leveraging this architecture for the business model are the following:
-- Ujomusic, Tryshowtime, Audius, Twitter superfollowers, Clubhouse creator economy, Roblox ROBUX, Audible Credits, Bonusly
-
-In Summary:
-
-While we are offering great details here in an effort to understand the model, it's actually very simple. So here we go in simple terms.
-1. Each user will have a Human AI Labs hosted Wallet, managed on blockchain, that will keep track of users memory access tokens (MATs). 
-2. Users earn MATs by their engagement with Stacks & Personal AIs and with their monthly subscription plan paid in USD.
-3. Users spend MATs to access their personal AIs, select specific transformers or access other people's AIs.
-
-That’s it.
-
-The associated value for our token (MAT) will be anchored on memory access via recall to their Personal AI using AIP address.
-
-AI Coins are designed to encourage two primary types of engagement: early adoption and long-term investment. Early adoption involves keeping the barrier to entry low for early investors and allowing the value of the AI Coin to grow steadily while attracting fans. Long-term investment means providing a path through which more developed creator communities can reach their true valuation.
+Every creator has an AI Coin associated with their Personal AI - this is the value of the creator’s Personal AI. AI Coins are designed to encourage two primary types of engagement: early adoption and long-term investment. Early adoption involves keeping the barrier to entry low for early investors and allowing the value of the AI Coin to grow steadily while attracting fans. Long-term investment means providing a path through which more developed creator communities can reach their true valuation.
 
 ### AI Coin Pricing Curve
 
-We utilize a polynomial sigmoid bonding curve to give the price of an AI Coin in MATs as a function of its circulating supply. Our pricing curve follows the following formula:
+A polynomial sigmoid bonding curve is used to define the price of an AI Coin in MATs as a function of its circulating supply. Our pricing curve uses the following formula:
 
 $$Price\space in\space MATs=a\cdot\left( \frac{supply - b}{\sqrt{c + (supply - b)^2}}+1\right)$$
 
-We can control the behavior of our curve using the following parameters:
+The behavior of the bonding curve is determined by the following parameters:
 - $a$, the top of the sigmoid curve, or $1/2$ of the price at max supply
 - $b$, the horizontal location of the inflection point of the sigmoid curve, or the supply at which the price begins to flatten off to it’s max value
 - $c$, the slope of the curve’s inflection point, or how fast the price grows
 
-AI Coins use the following parameters: $a=50,\space b=6\cdot 10^5,\space c=5\cdot 10^9$:
+For v1 AI Coins, bonding curves are the same for each creator's coins and use the following parameters: $a=50,\space b=6\cdot 10^5,\space c=5\cdot 10^9$:
 
 <center><br/>
 <img src="./figures/bonding-curve.png" alt="drawing" width="300"/><br/>
@@ -128,7 +106,7 @@ With the above parameters, we have the following metrics:
 
 A sigmoid function is used because it helps satisfy the dual goals of AI monetization. When an AI Coin is first minted and its circulating supply is low, its price is also low. As more users buy the coin and supply grows, the price grows 
 
-### Swap Price Calculation
+### Swap Price
 
 Users can buy and sell AI Coins at any time at a MAT price determined by the pricing curve above. Namely, to calculate the total MATs for a swap between two supply points, we must take the integral under the pricing curve between those two points. The formula for the integral is:
 
@@ -145,39 +123,39 @@ To calculate the price of any swap between two given supply points, we can take 
 
 $$Swap\space Price=a\cdot \left(s_1+\sqrt{(s_1-b)^2+c}-s_0-\sqrt{(s_0-b)^2+c}\right)$$
 
-
 ## Token Implmentation
 
 [TODO: Smart contract details, buy/sell swap function outlines]
 
+### Swap Price Calculation
 
-[Swap price calculation]
+Due to limitations of the Solidity language, some approximations must be made when actually performing swap price calculation on-chain. Solidity uses fixed-point arithmetic by applying a decimal offset to integer values, so all of our calculations are done in integer values that are then scaled by an appropriate factor (specifically by a factor of $10^{18}$). The parameters $a$, $b$, and $c$ must also be appropriately scaled so that the final MATs backed curve is in the correct units. For calculating square roots, we used the Babylonian method which is quadratically convergent and sufficiently accurate for our transactions.
 
-In code, it is that $s_1>s_0$ to give us strictly positive values from the above swap price formula. For example, to calculate the buy swap price for amount $B$ starting at supply $S$, we would set s0=S, s1=S+B. To calculate the sell swap price for amount L starting at supply S, we would set s0=S-L, s1=S.
+In code, it is assumed that $s_1>s_0$ to give us strictly positive values from the above swap price formula. For example, to calculate the buy swap price for amount $B$ starting at supply $S$, we would set $s0=S$ and $s1=S+B$. To calculate the sell swap price for amount $L$ starting at supply $S$, we would set $s0=S-L$ and $s1=S$.
 
 We leverage the all-or-nothing property of blockchain transactions to perform atomic buy and sell swaps between AI Coins and MATs. This means that the actions of updating a user’s AI Coin balance and their MAT balance will either both occur, or neither of them will occur. One additional step for buy swaps is properly setting allowances for spending MATs. To buy AI Coins, a user must first submit a separate transaction to the MAT token contract to allow the AI Coin contract to transfer the MAT payment amount of the purchase on behalf of the buyer. Within the Personal AI custodial ecosystem, we take care of this step for users in our backend systems, but external users should keep this extra step in mind. The AI Coin contract exposes a swapPrice() function that can be used to check the MAT price for any given swap.
 
-[Pseudocode blocks]
+Below are pseudocode blocks of buy and sell swap implementations:
 
 ```javascript
 /* Performs an AIP coin buy swap
  * Allows payer to buy AIP coins for recipient
  */
 function _buySwap(address payer, address recipient, uint256 amount) private {
-  // Verify buy amount
-  uint256 newSupply = totalSupply() + amount;
-  require(newSupply <= _maxSupply, "AIPCoin: buy amount exceeds available supply");
+  // Verify that there is sufficient supply to buy 'amount' coins
+  ...
 
-  // Verify that contract has MAT transfer allowance
-  uint256 swapPrice = getSwapPrice(totalSupply(), newSupply);
-  require(matToken.allowance(payer, address(this)) >= swapPrice,
-    "AIPCoin: must allow contract to transfer MAT payment");
+  // Calculate swap price for the transaction
+  ...
 
-  // Mint aipCoinAmount to buyer
-  _mint(recipient, amount);
+  // Verify that this contract has sufficient allowance to transfer the swap price payment in MATs on behalf of 'payer'
+  ...
 
-  // Transfer MATs price from buyer
-  require(matToken.transferFrom(payer, address(this), swapPrice), "MAT payment transfer failed");
+  // Mint 'amount' coins to 'recipient'
+  ...
+
+  // Transfer MATs payment from 'payer'
+  ...
 }
 ```
 
@@ -186,18 +164,14 @@ function _buySwap(address payer, address recipient, uint256 amount) private {
  * Allows seller to send MATs price to recipient
  */
 function _sellSwap(address seller, address recipient, uint256 amount) private {
-  // Get swap price
-  uint256 currSupply = totalSupply();
-  uint256 swapPrice = getSwapPrice(currSupply - amount, currSupply);
+  // Calculate swap price for the transaction
+  ...
 
-  // Burn aipCoinAmount from seller
-  _burn(seller, amount);
+  // Burn 'amount' coins from 'seller'
+  ...
 
-  // FIXME: Should not transfer MATs when supply is below base amount?
-  // Actually, contract should not have any MATs when below base supply, but transfer call will fail
-
-  // Transfer MATs price to recipient
-  require(matToken.transfer(recipient, swapPrice), "MAT payment transfer failed");
+  // Transfer MATs price to 'recipient'
+  ...
 }
 ```
 

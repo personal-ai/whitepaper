@@ -85,7 +85,7 @@ The behavior of the bonding curve is determined by the following parameters:
 For v1 AI Coins, bonding curves are the same for each creator's coins and use the following parameters: $a=50,\space b=6\cdot 10^5,\space c=5\cdot 10^9$:
 
 <center><br/>
-<img src="./figures/bonding-curve.png" alt="drawing" width="300"/><br/>
+<img src="./figures/bonding-curve.png" alt="drawing" width="400"/><br/>
 Figure: v1 AI Coin bonding curve<sup>2</sup><br/>
 y-axis: price in MATs, x-axis: AI Coin supply (in 10 thousands)
 </center><br/>
@@ -108,7 +108,7 @@ $$MATs\space backed=a\cdot \left(x+\sqrt{(x-b)^2+c}\right)+K$$
 The new parameter $K$ is a constant offset that makes it so that MATs backed is $0$ at its starting point, the supply minted to the creator. Graphing this theoretical model, we have:
 
 <center><br/>
-<img src="./figures/theoretical.png" alt="drawing" width="300"/><br/>
+<img src="./figures/theoretical.png" alt="drawing" width="400"/><br/>
 Figure: MATs backed as a function of AI Coin supply (Theoretical)
 </center><br/>
 
@@ -117,6 +117,10 @@ To calculate the price of any swap between two given supply points, we can take 
 $$Swap\space Price=a\cdot \left(s_1+\sqrt{(s_1-b)^2+c}-s_0-\sqrt{(s_0-b)^2+c}\right)$$
 
 ## Token Implmentation
+
+### Smart Contracts Overview
+
+[TODO: Smart contract architecture and interaction, maybe add a diagram? Also, why Matic (low transaction fees, bridging capabilities)]
 
 ### Swap Price Calculation
 
@@ -165,6 +169,10 @@ function _sellSwap(address seller, address recipient, uint256 amount) private {
   ...
 }
 ```
+
+### Ethereum Bridge
+
+[TODO: Ethereum bridge in/out thru Matic POS currently in development]
 
 ## Security
 

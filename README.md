@@ -85,7 +85,7 @@ The behavior of the bonding curve is determined by the following parameters:
 For v1 AI Coins, bonding curves are the same for each creator's coins and use the following parameters: $a=50,\space b=6\cdot 10^5,\space c=5\cdot 10^9$:
 
 <center><br/>
-<img src="figures/bonding-curve.png" alt="drawing" width="400"/><br/>
+<img src="figures/bonding-curve.png" alt="drawing" width="400"/>
 Figure: v1 AI Coin bonding curve<sup>2</sup><br/>
 y-axis: price in MATs, x-axis: AI Coin supply (in 10 thousands)
 </center><br/>
@@ -108,7 +108,7 @@ $$MATs\space backed=a\cdot \left(x+\sqrt{(x-b)^2+c}\right)+K$$
 The new parameter $K$ is a constant offset that makes it so that MATs backed is $0$ at its starting point, the supply minted to the creator. Graphing this theoretical model, we have:
 
 <center><br/>
-<img src="figures/theoretical.png" alt="drawing" width="400"/><br/>
+<img src="figures/theoretical.png" alt="drawing" width="400"/>
 Figure: MATs backed as a function of AI Coin supply (Theoretical)
 </center><br/>
 

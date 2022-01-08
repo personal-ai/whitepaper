@@ -2,15 +2,11 @@
 
 ## Abstract
 
-[TODO]
-
 There is a clear market need for an AI extension of an individual’s memory either for productivity, performance, peace of mind, or simply contribution to their loved ones or societies.
 
 ## Introduction
 
 ### The Personal AI Model
-
-[TODO: Personal AI opportunity and solution]
 
 80% of Our Memories are Forgotten
 
@@ -38,8 +34,6 @@ Our mission to empower each user as a fan supporting the creation of content and
 
 ## Terminology
 
-[TODO: definitions of various coins, tokens, terms]
-
 ### AIP
 
 AIP is the user's personal AI address. It’s public domain to access any personal AI. AIPs are in format [name].personal.ai.
@@ -65,8 +59,6 @@ Every user on our platform is a creator - each user creates their memories in th
 **Wallet**: Wallets hold a user's tokens. Personal AI manages a custodial wallet on-chain for each user.
 
 ## Tokenomics
-
-[TODO: Bonding curves and mathematics motivated by AI monetization principles]
 
 Rewards Model (Incentives):
 
@@ -98,13 +90,14 @@ Figure: v1 AI Coin bonding curve<sup>2</sup><br/>
 y-axis: price in MATs, x-axis: AI Coin supply (in 10 thousands)
 </center><br/>
 
-When an AI Coin is minted, 25% of the coins are given directly to the creator (represented by the region to the left of the vertical blue line). This gives an incentive to the creator to grow their platform, as the purchasing of their coin directly increases the value of their AI Coin holdings. Subsequent investments by fans can continue until the max supply of 1 million AI Coins (vertical green line).
+When an AI Coin is minted, 25% of the coins are given directly to the creator (represented by the region to the left of the vertical blue line). This gives an incentive to the creator to grow their platform, as the purchasing of their coin by fans directly increases the value of their own AI Coin holdings. Investments by fans can continue until the max supply of 1 million AI Coins (vertical green line).
 
-With the above parameters, we have the following metrics:
-- [TODO: Total MATs backing creator coin]
-- [TODO: Amount of MATs to buy x tokens]
+The above parameters result in the following aggregate metrics:
+- Total MATs backed for each AI Coin: $39,956,524$ MATs
+- Amount of MATs to buy the **first** 250,000 AI Coins available to fans: $770,153$ MATs
+- Amount of MATs to buy the **last** 250,000 AI Coins available to fans: $24,518,534$ MATs
 
-A sigmoid function is used because it helps satisfy the dual goals of AI monetization. When an AI Coin is first minted and its circulating supply is low, its price is also low. As more users buy the coin and supply grows, the price grows 
+A sigmoid function is used because it helps satisfy the dual goals of AI monetization. When an AI Coin is first minted its price is low, making early investment accessible to most users. However, as an AI Coin gains popularity, its price will quickly increase to match and encourage the growing hype around its creator community. In the long term, the coin stabilizes at a premium price point, a sign of its maturity and true value.
 
 ### Swap Price
 
@@ -125,15 +118,13 @@ $$Swap\space Price=a\cdot \left(s_1+\sqrt{(s_1-b)^2+c}-s_0-\sqrt{(s_0-b)^2+c}\ri
 
 ## Token Implmentation
 
-[TODO: Smart contract details, buy/sell swap function outlines]
-
 ### Swap Price Calculation
 
-Due to limitations of the Solidity language, some approximations must be made when actually performing swap price calculation on-chain. Solidity uses fixed-point arithmetic by applying a decimal offset to integer values, so all of our calculations are done in integer values that are then scaled by an appropriate factor (specifically by a factor of $10^{18}$). The parameters $a$, $b$, and $c$ must also be appropriately scaled so that the final MATs backed curve is in the correct units. For calculating square roots, we used the Babylonian method which is quadratically convergent and sufficiently accurate for our transactions.
+Due to limitations of the Solidity language, some approximations must be made when actually performing swap price calculation on-chain. Solidity uses fixed-point arithmetic by applying a decimal offset to integer values, so calculations are done in integer values that are then scaled by an appropriate factor (specifically by a factor of $10^{18}$). The parameters $a$, $b$, and $c$ must also be appropriately scaled so that the final MATs backed curve is in the correct units. The Babylonian method is used to calculate square roots, giving a quadratically convergent and sufficiently accurate algorithm for swap pricing.
 
-In code, it is assumed that $s_1>s_0$ to give us strictly positive values from the above swap price formula. For example, to calculate the buy swap price for amount $B$ starting at supply $S$, we would set $s0=S$ and $s1=S+B$. To calculate the sell swap price for amount $L$ starting at supply $S$, we would set $s0=S-L$ and $s1=S$.
+In code, it is assumed that $s_1>s_0$ to give us strictly positive values from the above swap price formula. For example, the inputs to calculate the buy swap price for amount $B$ starting at supply $S$ would be $s_0=S$ and $s_1=S+B$. To calculate the sell swap price for amount $L$ starting at supply $S$, set $s_0=S-L$ and $s_1=S$.
 
-We leverage the all-or-nothing property of blockchain transactions to perform atomic buy and sell swaps between AI Coins and MATs. This means that the actions of updating a user’s AI Coin balance and their MAT balance will either both occur, or neither of them will occur. One additional step for buy swaps is properly setting allowances for spending MATs. To buy AI Coins, a user must first submit a separate transaction to the MAT token contract to allow the AI Coin contract to transfer the MAT payment amount of the purchase on behalf of the buyer. Within the Personal AI custodial ecosystem, we take care of this step for users in our backend systems, but external users should keep this extra step in mind. The AI Coin contract exposes a swapPrice() function that can be used to check the MAT price for any given swap.
+The all-or-nothing property of blockchain transactions enables the execution of atomic buy and sell swaps between AI Coins and MATs. This means that the actions of updating a user’s AI Coin balance and their MAT balance will either both occur, or neither of them will occur. For buy swaps, there is an additional step of properly setting allowances to let the AI Coin contract transfer MATs on behalf of the buyer. Backend systems take care of this step for users within the Personal AI custodial ecosystem, but external users must keep this extra step in mind. The AI Coin contract exposes a swapPrice() function that can be used to check the MAT price for any given swap.
 
 Below are pseudocode blocks of buy and sell swap implementations:
 
@@ -182,11 +173,13 @@ function _sellSwap(address seller, address recipient, uint256 amount) private {
 
 ## Use Cases
 
+[TODO]
+
 ### Creator Personal AI Utility
 
-Traditionally, creators are those who could synthesize many thoughts and ideas and produce into a creator piece for their fans to consume and engage with their art or creation. However, who can be a creator is based on what tools are available to people at what times to unlock a specific group to express and convey they creativity. Examples include: video creatives on youtube platform, thoughts on twitter, express videos on tiktok, photos on instagram, written thoughts on substack or medium, a comprehensive coverage on books via audible etc; Each of them serve a specific creative. With the advent of NFTs, it has become a platform for artists to create digital presence.
+Traditionally, creators synthesize many thoughts and ideas and produce pieces of content for their fans to consume and engage with. However, creators are reliant on the tools platforms available to them to unlock the ability to express and convey their creativity. Examples include: videos on Youtube and TikTok, thoughts on Twitter, photos on Instagram, written pieces on Substack or Medium, books via Audible, etc. Each of these serve a specific creative. NFTs have also become a platform for artists to create and monetize their digital presence.
 
-Fans of creators consume creator content in the form of Books, Audios, Blogs, Videos, and now AIs:
+Fans of creators consume creator content in the form of Books, Audios, Blogs, Videos, and now **AIs**:
 - Books ->  authored, owned, distributed -> paper, e-reader, narrated -> print, kindle, audible
 - Audios -> branded, owned,  event driven -> radio, podcasts, panels -> FM, spotify, speaking, clubhouse
 - Blogs -> authored, owned, search driven -> wiki, articles, micro blogs -> internet, medium, substack, twitter

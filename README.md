@@ -85,7 +85,7 @@ The behavior of the bonding curve is determined by the following parameters:
 For v1 AI Coins, bonding curves are the same for each creator's coins and use the following parameters: $a=50,\space b=6\cdot 10^5,\space c=5\cdot 10^9$:
 
 <center><br/>
-<img src="./figures/bonding-curve.png" alt="drawing" width="400"/><br/>
+<img src="figures/bonding-curve.png" alt="drawing" width="400"/><br/>
 Figure: v1 AI Coin bonding curve<sup>2</sup><br/>
 y-axis: price in MATs, x-axis: AI Coin supply (in 10 thousands)
 </center><br/>
@@ -108,7 +108,7 @@ $$MATs\space backed=a\cdot \left(x+\sqrt{(x-b)^2+c}\right)+K$$
 The new parameter $K$ is a constant offset that makes it so that MATs backed is $0$ at its starting point, the supply minted to the creator. Graphing this theoretical model, we have:
 
 <center><br/>
-<img src="./figures/theoretical.png" alt="drawing" width="400"/><br/>
+<img src="figures/theoretical.png" alt="drawing" width="400"/><br/>
 Figure: MATs backed as a function of AI Coin supply (Theoretical)
 </center><br/>
 
@@ -239,3 +239,7 @@ Personal AI is a new medium to transparently make oneself available without heav
 How much do we know about humanity 100 years ago? A lot, nah! We feel good about how much information we have hosted on the Internet today, great, but its all biased information on what the media, journalists, hype is made of on the Internet. If we take a snapshot of the Internet on May 5th 2021 and have a future human on May 5th 2121 describe humanity, that human probably says there was 30% good 70% bad (todo better facts) which is a misrepresentation of truth. From history we only remember how Ganghis Khan was evil, conquered the world and perceived the world was brutal back then - oh but wait there is much more to humanity than Ganghis Khan story alone.
 
 Personal AI is a true reflection of an individual human and billions of Personal AIs is a closest representation of humanity as a whole -- this is a true snapshot of humanity 100 years from now. Each Personal AI lives in the cloud forever allowing the future to access any Personal AI for better. 
+
+## Links
+
+[TODO]

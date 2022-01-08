@@ -132,6 +132,8 @@ The all-or-nothing property of blockchain transactions enables the execution of 
 
 Below are pseudocode blocks of buy and sell swap implementations:
 
+Buy swap:
+
 ```javascript
 /* Performs an AIP coin buy swap
  * Allows payer to buy AIP coins for recipient
@@ -153,6 +155,8 @@ function _buySwap(address payer, address recipient, uint256 amount) private {
   ...
 }
 ```
+
+Sell swap:
 
 ```javascript
 /* Performs an AIP coin sell swap

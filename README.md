@@ -1,5 +1,5 @@
 # Personal AI Whitepaper - Draft v1
-Authors: Suman Kanuganti, Sharon Zhang, Alan Zhu
+Authors: Alan Zhu, Suman Kanuganti, Sharon Zhang
 
 ## Abstract
 

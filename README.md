@@ -1,4 +1,4 @@
-# Personal AI Whitepaper
+# Personal AI Whitepaper - Draft v1
 
 ## Abstract
 

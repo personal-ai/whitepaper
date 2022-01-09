@@ -94,11 +94,11 @@ The behavior of the bonding curve is determined by the following parameters:
 
 For v1 AI Coins, bonding curves are the same for each creator's coins and use the following parameters: $a=50,\space b=6\cdot 10^5,\space c=5\cdot 10^9$:
 
-<center><br/>
-<img src="figures/bonding-curve.png" alt="drawing" width="400"/>
-Figure: v1 AI Coin bonding curve<sup>2</sup><br/>
+<p align="center">
+<img src="figures/bonding-curve.png" alt="drawing" width="400"/><br/>
+Figure: v1 AI Coin bonding curve <sup><a href="##links">link</a></sup><br/>
 y-axis: price in MATs, x-axis: AI Coin supply (in 10 thousands)
-</center><br/>
+</p>
 
 When an AI Coin is minted, 25% of the coins are given directly to the creator (represented by the region to the left of the vertical blue line). This gives an incentive to the creator to grow their platform, as the purchasing of their coin by fans directly increases the value of their own AI Coin holdings. Investments by fans can continue until the max supply of 1 million AI Coins (vertical green line).
 
@@ -117,10 +117,10 @@ $$MATs\space backed=a\cdot \left(x+\sqrt{(x-b)^2+c}\right)+K$$
 
 The new parameter $K$ is a constant offset that makes it so that MATs backed is $0$ at its starting point, the supply minted to the creator. Graphing this theoretical model, we have:
 
-<center><br/>
+<p align="center">
 <img src="figures/theoretical.png" alt="drawing" width="400"/>
 Figure: MATs backed as a function of AI Coin supply (Theoretical)
-</center><br/>
+</p>
 
 To calculate the price of any swap between two given supply points, we can take the difference of the MATs backed values at the two points. Leveraging the formula from above:
 
@@ -130,11 +130,11 @@ $$Swap\space Price=a\cdot \left(s_1+\sqrt{(s_1-b)^2+c}-s_0-\sqrt{(s_0-b)^2+c}\ri
 
 ### Smart Contracts Overview
 
-Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup>3</sup>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
+Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup><a href="##links">link</a></sup><br/>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
 
 #### MATERC20
 
-MATs are implemented as an ERC20 fungible token inheriting the OpenZeppelin ERC20PresetMinterPauser template<sup>4</sup>. This preset provides external methods for minting/burning tokens that are used to control the supply of MATs. When users earn MATs through engagement, new MAT tokens are minted to their wallets. In this manner, the MATERC20 smart contract can be used to track the total suppply of tokens in the entire Personal AI ecosystem.
+MATs are implemented as an ERC20 fungible token inheriting the OpenZeppelin ERC20PresetMinterPauser template<sup><a href="##links">link</a></sup><br/>. This preset provides external methods for minting/burning tokens that are used to control the supply of MATs. When users earn MATs through engagement, new MAT tokens are minted to their wallets. In this manner, the MATERC20 smart contract can be used to track the total suppply of tokens in the entire Personal AI ecosystem.
 
 #### PAIMath
 
@@ -334,4 +334,7 @@ Personal AI is a true reflection of an individual human and billions of Personal
 
 ## Links
 
-[TODO]
+1. Description of the Babylonian method for calculating square roots: https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Babylonian_method
+2. Play with bonding curve parrameteres here: https://www.desmos.com/calculator/iisd4nfnom
+3. Polygon: https://polygon.technology/
+4. OpenZeppelin ERC20PresetMinterPauser documentation: https://docs.openzeppelin.com/contracts/3.x/api/presets#ERC20PresetMinterPauser

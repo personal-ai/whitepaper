@@ -98,7 +98,7 @@ For v1 AI Coins, bonding curves are the same for each creator's coins and use th
 
 <p align="center">
 <img src="figures/bonding-curve.png" alt="drawing" width="400"/><br/>
-Figure: v1 AI Coin bonding curve <sup><a href="#links">1</a></sup><br/>
+Figure: v1 AI Coin bonding curve <sup><a href="#links">link</a></sup><br/>
 y-axis: price in MATs, x-axis: AI Coin supply (in 10 thousands)
 </p>
 
@@ -122,25 +122,25 @@ Users can buy and sell AI Coins at any time at a MAT price determined by the pri
 The new parameter K is a constant offset that makes it so that MATs backed is 0 at its starting point, the supply minted to the creator. Graphing this theoretical model, we have:
 
 <p align="center">
-<img src="figures/theoretical.png" alt="drawing" width="400"/><br/>
+<img src="figures/theoretical.png" alt="drawing" width="420"/><br/>
 Figure: MATs backed as a function of AI Coin supply (Theoretical)
 </p>
 
 To calculate the price of any swap between two given supply points, we can take the difference of the MATs backed values at the two points. Leveraging the formula from above:
 
 <p align="center">
-<img src="formulas/swap-price.png" alt="formula" width="400"/>
+<img src="formulas/swap-price.png" alt="formula" width="550"/>
 </p>
 
 ## Token Implementation
 
 ### Smart Contracts Overview
 
-Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup><a href="#links">2</a></sup>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
+Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup><a href="#links">link</a></sup>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
 
 #### MATERC20
 
-MATs are implemented as an ERC20 fungible token inheriting the OpenZeppelin ERC20PresetMinterPauser template<sup><a href="#links">3</a></sup>. This preset provides external methods for minting/burning tokens that are used to control the supply of MATs. When users earn MATs through engagement, new MAT tokens are minted to their wallets. In this manner, the MATERC20 smart contract can be used to track the total suppply of tokens in the entire Personal AI ecosystem.
+MATs are implemented as an ERC20 fungible token inheriting the OpenZeppelin ERC20PresetMinterPauser template<sup><a href="#links">link</a></sup>. This preset provides external methods for minting/burning tokens that are used to control the supply of MATs. When users earn MATs through engagement, new MAT tokens are minted to their wallets. In this manner, the MATERC20 smart contract can be used to track the total suppply of tokens in the entire Personal AI ecosystem.
 
 #### PAIMath
 
@@ -224,7 +224,7 @@ contract AIPCoinFactory {
 
 ### Swap Price Calculation
 
-Due to limitations of the Solidity language, some approximations must be made when actually performing swap price calculation on-chain. Solidity uses fixed-point arithmetic by applying a decimal offset to integer values, so calculations are done in integer values that are then scaled by an appropriate factor (specifically by a factor of 10<sup>18</sup>). The parameters a, b, and c must also be appropriately scaled so that the final MATs backed curve is in the correct units. The Babylonian method<sup><a href="#links">4</a></sup> is used to calculate square roots, giving a quadratically convergent and sufficiently accurate algorithm for swap pricing.
+Due to limitations of the Solidity language, some approximations must be made when actually performing swap price calculation on-chain. Solidity uses fixed-point arithmetic by applying a decimal offset to integer values, so calculations are done in integer values that are then scaled by an appropriate factor (specifically by a factor of 10<sup>18</sup>). The parameters a, b, and c must also be appropriately scaled so that the final MATs backed curve is in the correct units. The Babylonian method<sup><a href="#links">link</a></sup> is used to calculate square roots, giving a quadratically convergent and sufficiently accurate algorithm for swap pricing.
 
 In code, it is assumed that s<sub>1</sub> > s<sub>0</sub> to give us strictly positive values from the above swap price formula. For example, the inputs to calculate the buy swap price for amount B starting at supply S would be s<sub>0</sub> = S and s<sub>1</sub> = S + B. To calculate the sell swap price for amount L starting at supply S, set s<sub>0</sub> = S - L and s<sub>1</sub> = S.
 
@@ -276,12 +276,11 @@ function _sellSwap(address seller, address recipient, uint256 amount) private {
 
 ### Ethereum Bridge
 
-[TODO: Ethereum bridge in/out thru Matic POS currently in development]
+Bridging MAT and AI Coin tokens to the Ethereum blockchain is currently in development. While Personal AI's smart contracts are natively implemented on the Matic blockchain, bridging to the Ethereum blockchain allows transfers and trading of the tokens with an even wider user base, connecting with one of the most popular and robust Web3 platforms. Such token bridging will be performed using the Matic PoS Bridge<sup><a href="#links">link</a></sup>.
 
 ## Security
 
 [TODO: Analysis of possible attack vectors of various smart contracts]
-- Experimentation on price calculation
 
 ## Use Cases
 
@@ -334,7 +333,7 @@ Personal AI is a new medium to transparently make oneself available without heav
 
 ### Afterlife
 
-How much do we know about humanity 100 years ago? A lot, nah! We feel good about how much information we have hosted on the Internet today, great, but its all biased information on what the media, journalists, hype is made of on the Internet. If we take a snapshot of the Internet on May 5th 2021 and have a future human on May 5th 2121 describe humanity, that human probably says there was 30% good 70% bad (todo better facts) which is a misrepresentation of truth. From history we only remember how Ganghis Khan was evil, conquered the world and perceived the world was brutal back then - oh but wait there is much more to humanity than Ganghis Khan story alone.
+How much do we know about humanity 100 years ago? A lot, nah! We feel good about how much information we have hosted on the Internet today, great, but its all biased information on what the media, journalists, hype is made of on the Internet. If we take a snapshot of the Internet on May 5th 2021 and have a future human on May 5th 2121 describe humanity, that human probably says there was 30% good 70% bad (TODO better facts) which is a misrepresentation of truth. From history we only remember how Ganghis Khan was evil, conquered the world and perceived the world was brutal back then - oh but wait there is much more to humanity than Ganghis Khan story alone.
 
 Personal AI is a true reflection of an individual human and billions of Personal AIs is a closest representation of humanity as a whole -- this is a true snapshot of humanity 100 years from now. Each Personal AI lives in the cloud forever allowing the future to access any Personal AI for better. 
 
@@ -344,3 +343,4 @@ Personal AI is a true reflection of an individual human and billions of Personal
 2. Polygon: https://polygon.technology
 3. OpenZeppelin ERC20PresetMinterPauser documentation: https://docs.openzeppelin.com/contracts/3.x/api/presets#ERC20PresetMinterPauser
 4. Description of the Babylonian method for calculating square roots: https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Babylonian_method
+5. Matic PoS Bridge documentation: https://docs.matic.today/docs/develop/ethereum-matic/pos/getting-started

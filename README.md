@@ -1,4 +1,4 @@
-# Personal AI Whitepaper - Draft v1
+# Personal AI Whitepaper
 
 ## Abstract
 
@@ -107,8 +107,10 @@ $$MATs\space backed=a\cdot \left(x+\sqrt{(x-b)^2+c}\right)+K$$
 
 The new parameter $K$ is a constant offset that makes it so that MATs backed is $0$ at its starting point, the supply minted to the creator. Graphing this theoretical model, we have:
 
+<center><br/>
 <img src="figures/theoretical.png" alt="drawing" width="400"/>
 Figure: MATs backed as a function of AI Coin supply (Theoretical)
+</center><br/>
 
 To calculate the price of any swap between two given supply points, we can take the difference of the MATs backed values at the two points. Leveraging the formula from above:
 
@@ -118,9 +120,91 @@ $$Swap\space Price=a\cdot \left(s_1+\sqrt{(s_1-b)^2+c}-s_0-\sqrt{(s_0-b)^2+c}\ri
 
 ### Smart Contracts Overview
 
-[TODO: Smart contract architecture and interaction, maybe add a diagram? Also, why Matic (low transaction fees, bridging capabilities)]
+Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup>3</sup>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
 
-Personal AI's AI Coin creator economy is implemented on the Matic blockchain.
+#### MATERC20
+
+MATs are implemented as an ERC20 fungible token inheriting the OpenZeppelin ERC20PresetMinterPauser template<sup>4</sup>. This preset provides external methods for minting/burning tokens that are used to control the supply of MATs. When users earn MATs through engagement, new MAT tokens are minted to their wallets. In this manner, the MATERC20 smart contract can be used to track the total suppply of tokens in the entire Personal AI ecosystem.
+
+#### PAIMath
+
+PAIMath exposes custom math methods for assisting in any calculations needed in Personal AI's token contracts. Currently, there is only one function (for calculating square roots).
+
+```javascript
+contract PAIMath {
+  /* Calculate the square root of unsigned integer x using the Babylonian method */
+  function sqrt(uint256 x) public pure returns (uint256);
+}
+```
+
+#### AIPCoinERC20
+
+The AIPCoinERC20 contract, like MATERC20, inherits the OpenZeppelin ERC20PresetMinterPauser template but also contains custom fields and functions. The contract also imports the PAIMath contract for doing arithmetic and the MATERC20 contract for payment transfers.
+
+```javascript
+contract AIPCoinERC20 is ERC20PresetMinterPauser {
+  PAIMath public paiMath = new PAIMath();
+
+  MATERC20 public matToken;
+
+  /* Tracks on-chain address of creator of this coin */
+  address private _aipCreator;
+
+  /* Max supply of this AIP Coin */
+  uint256 private _maxSupply;
+
+  ...
+
+  /* Max supply getter */
+  function maxSupply() public view virtual returns (uint256);
+
+  /* Function for swap price calculation */
+  function getSwapPrice(uint256 supply0, uint256 supply1) public view returns (uint256);
+
+  /* AIP Creator address getter and setter */
+  function getAipCreator() public view returns (address);
+  function setAipCreator(address aipCreator) public;
+
+  /* Performs an AIP coin buy swap
+   * Allows payer to buy AIP coins for recipient
+   */
+  function _buySwap(address payer, address recipient, uint256 amount) private;
+
+  /* Performs a buy swap with the message sender as payer and recipient */
+  function buy(uint256 amount) external;
+
+  /* Performs an AIP coin sell swap
+   * Allows seller to send MATs price to recipient
+   */
+  function _sellSwap(address seller, address recipient, uint256 amount) private;
+
+  /* Performs a sell swap with the message sender as seller and recipient */
+  function sell(uint256 amount) external;
+}
+```
+
+#### AIPCoinFactory
+
+The AIPCoinFactory smart contract is used when new creators want to mint their AI Coin to create new instances of the AIPCoinERC20 smart contract. A custom `AIPCoinCreated` event is emitted with every token creation which allows for monitoring using event listeners. The smart contract also keeps a mapping of AI Coin symbols to contract addresses for easy querying on-chain.
+
+```javascript
+contract AIPCoinFactory {
+  mapping(string => address) _aipCoinAddresses;
+
+  /* Emitted when a new AIPCoin is created with `name` and `symbol` to address `aipCoinAddress`. */
+  event AIPCoinCreated(string indexed name, string indexed symbol, address aipCoinAddress);
+
+  /* Creates a new AIP Coin with `name` and `symbol`,
+   * minting an initial supply to `aipCreator`.
+   *
+   * Emits an {AIPCoinCreated} event.
+   */
+  function createAipCoin(string memory name, string memory symbol, address aipCreator) external returns (uint);
+
+  /* Returns the address of the AIP Coin contract for the given `symbol`. */
+  function getAipCoinAddress(string memory symbol) external view returns (address);
+}
+```
 
 ### Swap Price Calculation
 

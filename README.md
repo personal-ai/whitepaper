@@ -2,7 +2,7 @@
 
 ## Abstract
 
-There is a clear market need for an AI extension of an individual’s memory either for productivity, performance, peace of mind, or simply contribution to their loved ones or societies.
+There is a clear market need for an AI extension of an individual’s memory either for productivity, performance, peace of mind, or simply contribution to their loved ones or societies. Personal AI provides the tools for building that AI, as well as sharing that AI with the people around you.
 
 ## Introduction
 
@@ -22,31 +22,21 @@ Our philosophy is that every human is a creator in their own form and has inhere
 
 Personal AI's mission is for humans to recall their memories from their memory stacks with their personal AIs. With Personal AI, there is an intrinsic connection between memories and content creation: memories are “living content” - curated for creators themselves and their fans.
 
-### Why blockchain?
+### Terminology
 
-[TODO: AI monetization and the creator economy explained]
+#### AIP
 
-Our mission to create each user's memory stack while keeping their data private and giving them transparency and control over their data is aligned with the ethos of decentralized identity on blockchain.
+A user's **AIP** is their personal AI address. It’s public domain to access any personal AI. AIPs are in format [name].personal.ai.
 
-Our mission to empower each user as a creator of their own memory, knowledge, and mind that is beneficial for not only themselves, but also for the wider community is aligned with the ethos of creator economy and the community around them.
+#### Tokens
 
-Our mission to empower each user as a fan supporting the creation of content and information that is useful to them is aligned with the ethos of crowd-funding and DAOs in DeFi.
-
-## Terminology
-
-### AIP
-
-AIP is the user's personal AI address. It’s public domain to access any personal AI. AIPs are in format [name].personal.ai.
-
-### Tokens
-
-**MAT** (ERC20): MAT (Memory Access Tokens) is a token (fungible) serving as the basic currency of the Personal AI ecosystem. MAT is associated with the total value in the Personal AI system, and its circulating supply is managed on the blockchain.
+**MAT** (ERC20): MAT (Memory Access Token) is a token (fungible) serving as the basic currency of the Personal AI ecosystem. MAT is associated with the total value in the Personal AI system, and its circulating supply is managed on the blockchain.
 
 **AI Coin** (ERC20): A social token (fungible) associated with the value of a creator’s AIP, the value of the AI Coin goes up or down depending on the demand/supply for the particular token.
 
 **AIP Subscription** (ERC721): A token (non-fungible) associated with the subscriptions to a creator’s AIP - by a creator (self sub) or a fan (sub). AIP Subs can be used to verify access to a specific creator's AI.
 
-### Users
+#### Users
 
 Every user on our platform is a creator - each user creates their memories in the form of their memory Stack, an asset which they own. Personal AI is the medium in which they can interact with their fans, to benefit themselves as well as benefit others.
 
@@ -54,9 +44,29 @@ Every user on our platform is a creator - each user creates their memories in th
 
 **Fan** (player): A user of Personal AI who subscribes to an AIP. A fan may or may not be a creator. A fan can stake/trade the AI Coin of the creator in exchange for MATs.
 
-### Wallets
+#### Wallets
 
 **Wallet**: Wallets hold a user's tokens. Personal AI manages a custodial wallet on-chain for each user.
+
+### AI Creator Economy
+
+From social tokens to social utility tokens.
+1. **Earn to Train**: Everyone is given an AI training credit that is required to train/retrain their personal AI. They continue to earn credits if they keep up their Sync activity levels governed by a smart-contract on chain.
+2. **Fees to Train**: Personal AIs that need continuous syncing and frequent training require more AI training credits that they can purchase on a recurring basis when they choose an available premium subscription.
+3. **Monetize my AI**: Every Personal AI has an option to mint an associated AI creator coin with a fee. Creator AI Coins are fungible tokens that represent equity in a creator’s AI. The minting of a creator’s AI Coins unlocks:
+    - AI Creators can give access to holders of their token to benefit from their AI. Examples include writing with my AI, interacting with my AI, subscribing to my AI topics.
+    - Fans can also support their favorite AI creators by investing in their AI creator coins.
+4. **Participate in AI economy**: The transactions are governed by Memory Access Tokens, the native currency of the Personal AI ecosystem.
+    - The unifying currency of Memory Access Tokens serves as an indicator for the overall value and utility of the personal AI ecosystem
+    - The value of a MAT is derived from the combination of AI creator value, user engagement, and speculative interest
+
+### Why blockchain?
+
+Our mission to create each user's memory stack while keeping their data private and giving them transparency and control over their data is aligned with the ethos of decentralized identity on blockchain.
+
+Our mission to empower each user as a creator of their own memory, knowledge, and mind that is beneficial for not only themselves, but also for the wider community is aligned with the ethos of creator economy and the community around them.
+
+Our mission to empower each user as a fan supporting the creation of content and information that is useful to them is aligned with the ethos of crowd-funding and DAOs in DeFi.
 
 ## Tokenomics
 
@@ -262,16 +272,12 @@ function _sellSwap(address seller, address recipient, uint256 amount) private {
 
 [TODO: Ethereum bridge in/out thru Matic POS currently in development]
 
-
-
 ## Security
 
 [TODO: Analysis of possible attack vectors of various smart contracts]
 - Experimentation on price calculation
 
 ## Use Cases
-
-[TODO]
 
 ### Creator Personal AI Utility
 

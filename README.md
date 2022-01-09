@@ -159,7 +159,7 @@ The AIPCoinERC20 contract, like MATERC20, inherits the OpenZeppelin ERC20PresetM
 
 ```javascript
 contract AIPCoinERC20 is ERC20PresetMinterPauser {
-  PAIMath public paiMath = new PAIMath();
+  PAIMath public paiMath;
 
   MATERC20 public matToken;
 

@@ -96,7 +96,7 @@ For v1 AI Coins, bonding curves are the same for each creator's coins and use th
 
 <p align="center">
 <img src="figures/bonding-curve.png" alt="drawing" width="400"/><br/>
-Figure: v1 AI Coin bonding curve <sup><a href="#links">link</a></sup><br/>
+Figure: v1 AI Coin bonding curve <sup><a href="#links">1</a></sup><br/>
 y-axis: price in MATs, x-axis: AI Coin supply (in 10 thousands)
 </p>
 
@@ -130,11 +130,11 @@ $$Swap\space Price=a\cdot \left(s_1+\sqrt{(s_1-b)^2+c}-s_0-\sqrt{(s_0-b)^2+c}\ri
 
 ### Smart Contracts Overview
 
-Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup><a href="#links">link</a></sup>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
+Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup><a href="#links">2</a></sup>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
 
 #### MATERC20
 
-MATs are implemented as an ERC20 fungible token inheriting the OpenZeppelin ERC20PresetMinterPauser template<sup><a href="#links">link</a></sup>. This preset provides external methods for minting/burning tokens that are used to control the supply of MATs. When users earn MATs through engagement, new MAT tokens are minted to their wallets. In this manner, the MATERC20 smart contract can be used to track the total suppply of tokens in the entire Personal AI ecosystem.
+MATs are implemented as an ERC20 fungible token inheriting the OpenZeppelin ERC20PresetMinterPauser template<sup><a href="#links">3</a></sup>. This preset provides external methods for minting/burning tokens that are used to control the supply of MATs. When users earn MATs through engagement, new MAT tokens are minted to their wallets. In this manner, the MATERC20 smart contract can be used to track the total suppply of tokens in the entire Personal AI ecosystem.
 
 #### PAIMath
 
@@ -218,7 +218,7 @@ contract AIPCoinFactory {
 
 ### Swap Price Calculation
 
-Due to limitations of the Solidity language, some approximations must be made when actually performing swap price calculation on-chain. Solidity uses fixed-point arithmetic by applying a decimal offset to integer values, so calculations are done in integer values that are then scaled by an appropriate factor (specifically by a factor of $10^{18}$). The parameters $a$, $b$, and $c$ must also be appropriately scaled so that the final MATs backed curve is in the correct units. The Babylonian method is used to calculate square roots, giving a quadratically convergent and sufficiently accurate algorithm for swap pricing.
+Due to limitations of the Solidity language, some approximations must be made when actually performing swap price calculation on-chain. Solidity uses fixed-point arithmetic by applying a decimal offset to integer values, so calculations are done in integer values that are then scaled by an appropriate factor (specifically by a factor of $10^{18}$). The parameters $a$, $b$, and $c$ must also be appropriately scaled so that the final MATs backed curve is in the correct units. The Babylonian method<sup><a href="#links">4</a></sup> is used to calculate square roots, giving a quadratically convergent and sufficiently accurate algorithm for swap pricing.
 
 In code, it is assumed that $s_1>s_0$ to give us strictly positive values from the above swap price formula. For example, the inputs to calculate the buy swap price for amount $B$ starting at supply $S$ would be $s_0=S$ and $s_1=S+B$. To calculate the sell swap price for amount $L$ starting at supply $S$, set $s_0=S-L$ and $s_1=S$.
 
@@ -334,7 +334,7 @@ Personal AI is a true reflection of an individual human and billions of Personal
 
 ## Links
 
-1. Description of the Babylonian method for calculating square roots: https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Babylonian_method
-2. Play with bonding curve parrameteres here: https://www.desmos.com/calculator/iisd4nfnom
-3. Polygon: https://polygon.technology/
-4. OpenZeppelin ERC20PresetMinterPauser documentation: https://docs.openzeppelin.com/contracts/3.x/api/presets#ERC20PresetMinterPauser
+1. Play with bonding curve parrameteres here: https://www.desmos.com/calculator/iisd4nfnom
+2. Polygon: https://polygon.technology
+3. OpenZeppelin ERC20PresetMinterPauser documentation: https://docs.openzeppelin.com/contracts/3.x/api/presets#ERC20PresetMinterPauser
+4. Description of the Babylonian method for calculating square roots: https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Babylonian_method

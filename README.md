@@ -96,7 +96,7 @@ For v1 AI Coins, bonding curves are the same for each creator's coins and use th
 
 <p align="center">
 <img src="figures/bonding-curve.png" alt="drawing" width="400"/><br/>
-Figure: v1 AI Coin bonding curve <sup><a href="##links">link</a></sup><br/>
+Figure: v1 AI Coin bonding curve <sup><a href="#links">link</a></sup><br/>
 y-axis: price in MATs, x-axis: AI Coin supply (in 10 thousands)
 </p>
 
@@ -118,7 +118,7 @@ $$MATs\space backed=a\cdot \left(x+\sqrt{(x-b)^2+c}\right)+K$$
 The new parameter $K$ is a constant offset that makes it so that MATs backed is $0$ at its starting point, the supply minted to the creator. Graphing this theoretical model, we have:
 
 <p align="center">
-<img src="figures/theoretical.png" alt="drawing" width="400"/>
+<img src="figures/theoretical.png" alt="drawing" width="400"/><br/>
 Figure: MATs backed as a function of AI Coin supply (Theoretical)
 </p>
 
@@ -130,11 +130,11 @@ $$Swap\space Price=a\cdot \left(s_1+\sqrt{(s_1-b)^2+c}-s_0-\sqrt{(s_0-b)^2+c}\ri
 
 ### Smart Contracts Overview
 
-Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup><a href="##links">link</a></sup><br/>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
+Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup><a href="#links">link</a></sup>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
 
 #### MATERC20
 
-MATs are implemented as an ERC20 fungible token inheriting the OpenZeppelin ERC20PresetMinterPauser template<sup><a href="##links">link</a></sup><br/>. This preset provides external methods for minting/burning tokens that are used to control the supply of MATs. When users earn MATs through engagement, new MAT tokens are minted to their wallets. In this manner, the MATERC20 smart contract can be used to track the total suppply of tokens in the entire Personal AI ecosystem.
+MATs are implemented as an ERC20 fungible token inheriting the OpenZeppelin ERC20PresetMinterPauser template<sup><a href="#links">link</a></sup>. This preset provides external methods for minting/burning tokens that are used to control the supply of MATs. When users earn MATs through engagement, new MAT tokens are minted to their wallets. In this manner, the MATERC20 smart contract can be used to track the total suppply of tokens in the entire Personal AI ecosystem.
 
 #### PAIMath
 

@@ -107,20 +107,20 @@ $$MATs\space backed=a\cdot \left(x+\sqrt{(x-b)^2+c}\right)+K$$
 
 The new parameter $K$ is a constant offset that makes it so that MATs backed is $0$ at its starting point, the supply minted to the creator. Graphing this theoretical model, we have:
 
-<center><br/>
 <img src="figures/theoretical.png" alt="drawing" width="400"/>
 Figure: MATs backed as a function of AI Coin supply (Theoretical)
-</center><br/>
 
 To calculate the price of any swap between two given supply points, we can take the difference of the MATs backed values at the two points. Leveraging the formula from above:
 
 $$Swap\space Price=a\cdot \left(s_1+\sqrt{(s_1-b)^2+c}-s_0-\sqrt{(s_0-b)^2+c}\right)$$
 
-## Token Implmentation
+## Token Implementation
 
 ### Smart Contracts Overview
 
 [TODO: Smart contract architecture and interaction, maybe add a diagram? Also, why Matic (low transaction fees, bridging capabilities)]
+
+Personal AI's AI Coin creator economy is implemented on the Matic blockchain.
 
 ### Swap Price Calculation
 
@@ -177,6 +177,8 @@ function _sellSwap(address seller, address recipient, uint256 amount) private {
 ### Ethereum Bridge
 
 [TODO: Ethereum bridge in/out thru Matic POS currently in development]
+
+
 
 ## Security
 

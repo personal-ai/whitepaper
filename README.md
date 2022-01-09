@@ -85,14 +85,16 @@ Every creator has an AI Coin associated with their Personal AI - this is the val
 
 A polynomial sigmoid bonding curve is used to define the price of an AI Coin in MATs as a function of its circulating supply. Our pricing curve uses the following formula:
 
-$$Price\space in\space MATs=a\cdot\left( \frac{supply - b}{\sqrt{c + (supply - b)^2}}+1\right)$$
+<p align="center">
+<img src="formulas/price-in-mats.png" alt="formula" width="400"/>
+</p>
 
 The behavior of the bonding curve is determined by the following parameters:
-- $a$, the top of the sigmoid curve, or $1/2$ of the price at max supply
-- $b$, the horizontal location of the inflection point of the sigmoid curve, or the supply at which the price begins to flatten off to it’s max value
-- $c$, the slope of the curve’s inflection point, or how fast the price grows
+- a, the top of the sigmoid curve, or 1/2 of the price at max supply
+- b, the horizontal location of the inflection point of the sigmoid curve, or the supply at which the price begins to flatten off to it’s max value
+- c, the slope of the curve’s inflection point, or how fast the price grows
 
-For v1 AI Coins, bonding curves are the same for each creator's coins and use the following parameters: $a=50,\space b=6\cdot 10^5,\space c=5\cdot 10^9$:
+For v1 AI Coins, bonding curves are the same for each creator's coins and use the following parameters: a = 50, b = 6⋅10<sup>5</sup>, c = 5⋅10<sup>9</sup>:
 
 <p align="center">
 <img src="figures/bonding-curve.png" alt="drawing" width="400"/><br/>
@@ -103,9 +105,9 @@ y-axis: price in MATs, x-axis: AI Coin supply (in 10 thousands)
 When an AI Coin is minted, 25% of the coins are given directly to the creator (represented by the region to the left of the vertical blue line). This gives an incentive to the creator to grow their platform, as the purchasing of their coin by fans directly increases the value of their own AI Coin holdings. Investments by fans can continue until the max supply of 1 million AI Coins (vertical green line).
 
 The above parameters result in the following aggregate metrics:
-- Total MATs backed for each AI Coin: $39,956,524$ MATs
-- Amount of MATs to buy the **first** 250,000 AI Coins available to fans: $770,153$ MATs
-- Amount of MATs to buy the **last** 250,000 AI Coins available to fans: $24,518,534$ MATs
+- Total MATs backed for each AI Coin: 39,956,524 MATs
+- Amount of MATs to buy the **first** 250,000 AI Coins available to fans: 770,153 MATs
+- Amount of MATs to buy the **last** 250,000 AI Coins available to fans: 24,518,534 MATs
 
 A sigmoid function is used because it helps satisfy the dual goals of AI monetization. When an AI Coin is first minted its price is low, making early investment accessible to most users. However, as an AI Coin gains popularity, its price will quickly increase to match and encourage the growing hype around its creator community. In the long term, the coin stabilizes at a premium price point, a sign of its maturity and true value.
 
@@ -113,9 +115,11 @@ A sigmoid function is used because it helps satisfy the dual goals of AI monetiz
 
 Users can buy and sell AI Coins at any time at a MAT price determined by the pricing curve above. Namely, to calculate the total MATs for a swap between two supply points, we must take the integral under the pricing curve between those two points. The formula for the integral is:
 
-$$MATs\space backed=a\cdot \left(x+\sqrt{(x-b)^2+c}\right)+K$$
+<p align="center">
+<img src="formulas/mats-backed.png" alt="formula" width="400"/>
+</p>
 
-The new parameter $K$ is a constant offset that makes it so that MATs backed is $0$ at its starting point, the supply minted to the creator. Graphing this theoretical model, we have:
+The new parameter K is a constant offset that makes it so that MATs backed is 0 at its starting point, the supply minted to the creator. Graphing this theoretical model, we have:
 
 <p align="center">
 <img src="figures/theoretical.png" alt="drawing" width="400"/><br/>
@@ -124,7 +128,9 @@ Figure: MATs backed as a function of AI Coin supply (Theoretical)
 
 To calculate the price of any swap between two given supply points, we can take the difference of the MATs backed values at the two points. Leveraging the formula from above:
 
-$$Swap\space Price=a\cdot \left(s_1+\sqrt{(s_1-b)^2+c}-s_0-\sqrt{(s_0-b)^2+c}\right)$$
+<p align="center">
+<img src="formulas/swap-price.png" alt="formula" width="400"/>
+</p>
 
 ## Token Implementation
 
@@ -218,9 +224,9 @@ contract AIPCoinFactory {
 
 ### Swap Price Calculation
 
-Due to limitations of the Solidity language, some approximations must be made when actually performing swap price calculation on-chain. Solidity uses fixed-point arithmetic by applying a decimal offset to integer values, so calculations are done in integer values that are then scaled by an appropriate factor (specifically by a factor of $10^{18}$). The parameters $a$, $b$, and $c$ must also be appropriately scaled so that the final MATs backed curve is in the correct units. The Babylonian method<sup><a href="#links">4</a></sup> is used to calculate square roots, giving a quadratically convergent and sufficiently accurate algorithm for swap pricing.
+Due to limitations of the Solidity language, some approximations must be made when actually performing swap price calculation on-chain. Solidity uses fixed-point arithmetic by applying a decimal offset to integer values, so calculations are done in integer values that are then scaled by an appropriate factor (specifically by a factor of 10<sup>18</sup>). The parameters a, b, and c must also be appropriately scaled so that the final MATs backed curve is in the correct units. The Babylonian method<sup><a href="#links">4</a></sup> is used to calculate square roots, giving a quadratically convergent and sufficiently accurate algorithm for swap pricing.
 
-In code, it is assumed that $s_1>s_0$ to give us strictly positive values from the above swap price formula. For example, the inputs to calculate the buy swap price for amount $B$ starting at supply $S$ would be $s_0=S$ and $s_1=S+B$. To calculate the sell swap price for amount $L$ starting at supply $S$, set $s_0=S-L$ and $s_1=S$.
+In code, it is assumed that s<sub>1</sub> > s<sub>0</sub> to give us strictly positive values from the above swap price formula. For example, the inputs to calculate the buy swap price for amount B starting at supply S would be s<sub>0</sub> = S and s<sub>1</sub> = S + B. To calculate the sell swap price for amount L starting at supply S, set s<sub>0</sub> = S - L and s<sub>1</sub> = S.
 
 The all-or-nothing property of blockchain transactions enables the execution of atomic buy and sell swaps between AI Coins and MATs. This means that the actions of updating a user’s AI Coin balance and their MAT balance will either both occur, or neither of them will occur. For buy swaps, there is an additional step of properly setting allowances to let the AI Coin contract transfer MATs on behalf of the buyer. Backend systems take care of this step for users within the Personal AI custodial ecosystem, but external users must keep this extra step in mind. The AI Coin contract exposes a swapPrice() function that can be used to check the MAT price for any given swap.
 

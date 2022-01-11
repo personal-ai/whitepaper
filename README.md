@@ -281,6 +281,14 @@ Bridging MAT and AI Coin tokens to the Ethereum blockchain is currently in devel
 
 ## Security
 
+Personal AI partners with Oasis Labs<sup><a href="#links">link</a></sup> to bring decentralized identity, data privacy, and data control—secured by blockchain—to users.
+
+### Custodial Wallets
+
+Personal AI's custodial wallet system is built using Oasis Parcel<sup><a href="#links">link</a></sup>. Users' private keys are stored in secure Parcel Documents whose access is governed by user-controlled permissions. Personal AI can only read user keys that it has been granted permission to use. This way, users maintain full ownership of their assets within the Personal AI ecosystem.
+
+### AI Access
+
 [TODO: Analysis of possible attack vectors of various smart contracts]
 
 ## Use Cases
@@ -345,3 +353,4 @@ Personal AI is a true reflection of an individual human and billions of Personal
 3. OpenZeppelin ERC20PresetMinterPauser documentation: https://docs.openzeppelin.com/contracts/3.x/api/presets#ERC20PresetMinterPauser
 4. Description of the Babylonian method for calculating square roots: https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Babylonian_method
 5. Matic PoS Bridge documentation: https://docs.matic.today/docs/develop/ethereum-matic/pos/getting-started
+6. Oasis Labs: https://www.oasislabs.com/

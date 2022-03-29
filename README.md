@@ -53,7 +53,7 @@ Every user on our platform is a creator - each user creates their memories in th
 
 From social tokens to social utility tokens.
 1. **Earn to Train**: Everyone is given an AI training credit that is required to train/retrain their personal AI. They continue to earn credits if they keep up their Sync activity levels governed by a smart-contract on chain.
-2. **Fees to Train**: Personal AIs that need continuous syncing and frequent training require more AI training credits that they can purchase on a recurring basis when they choose an available premium subscription.
+2. **Stake to Train**: Personal AIs that need continuous syncing and frequent training require more AI training credits that they can earn in form of rewards when they stake stable coins.
 3. **Monetize my AI**: Every Personal AI has an option to mint an associated AI creator coin with a fee. Creator AI Coins are fungible tokens that represent equity in a creator’s AI. The minting of a creator’s AI Coins unlocks:
     - AI Creators can give access to holders of their token to benefit from their AI. Examples include writing with my AI, interacting with my AI, subscribing to my AI topics.
     - Fans can also support their favorite AI creators by investing in their AI creator coins.
@@ -70,6 +70,12 @@ Our mission to empower each user as a creator of their own memory, knowledge, an
 Our mission to empower each user as a fan supporting the creation of content and information that is useful to them is aligned with the ethos of crowd-funding and DAOs in DeFi.
 
 ## Tokenomics
+
+### Token Distribution
+
+When designing the pricing models for AI Coins, we had two important objectives in mind: early adoption and long-term investment. Encouraging early adoption means keeping the barrier to entry low for early investors and allowing the value of the AI Coin to grow steadily while attracting fans. Long-term investment involves providing a path through which more developed creator communities can reach their true valuation. Hand in hand, these two factors of our AI Coin pricing model are aimed to help each creator community grow and reach its full potential.
+
+We expect this token distribution will attribute to a percentage ownership of the company managed via a DAO which is not set up yet. The strategy is to implement the system on the chain and then do the distribution. The application already supports earning of the Memory Access Tokens (MATs) which can be redeemed for AI training credits.   
 
 Rewards Model (Incentives):
 

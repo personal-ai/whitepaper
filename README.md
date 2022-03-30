@@ -35,15 +35,13 @@ A user's **AIP** is their personal AI address. It’s public domain to access an
 
 **AI Coin** (ERC20): A social token (fungible) associated with the value of a creator’s AIP, the value of the AI Coin goes up or down depending on the demand/supply for the particular token.
 
-**AIP Subscription** (ERC721): A token (non-fungible) associated with the subscriptions to a creator’s AIP - by a creator (self sub) or a fan (sub). AIP Subs can be used to verify access to a specific creator's AI.
-
 #### Users
 
 Every user on our platform is a creator - each user creates their memories in the form of their memory Stack, an asset which they own. Personal AI is the medium in which they can interact with their fans, to benefit themselves as well as benefit others.
 
-**Creator** (player): A user of Personal AI who builds their memory stack to train their personal AIs. The creator can mint their AI Coin which they can use to grant personal AI access and other special features to fans.
+**Creator**: A user of Personal AI who builds their memory stack to train their personal AIs. The creator can mint their AI Coin which they can use to grant personal AI access and other special features to fans.
 
-**Fan** (player): A user of Personal AI who subscribes to an AIP. A fan may or may not be a creator. A fan can stake/trade the AI Coin of the creator in exchange for MATs.
+**Fan**: A user of Personal AI who subscribes to an AIP. A fan may or may not be a creator. A fan can stake/trade the AI Coin of the creator in exchange for MATs.
 
 #### Wallets
 
@@ -75,7 +73,7 @@ Our mission to empower each user as a fan supporting the creation of content and
 
 When designing the pricing models for AI Coins, we had two important objectives in mind: early adoption and long-term investment. Encouraging early adoption means keeping the barrier to entry low for early investors and allowing the value of the AI Coin to grow steadily while attracting fans. Long-term investment involves providing a path through which more developed creator communities can reach their true valuation. Hand in hand, these two factors of our AI Coin pricing model are aimed to help each creator community grow and reach its full potential.
 
-We expect this token distribution will attribute to a percentage ownership of the company managed via a DAO which is not set up yet. The strategy is to implement the system on the chain and then do the distribution. The application already supports earning of the Memory Access Tokens (MATs) which can be redeemed for AI training credits.   
+We expect this token distribution will attribute to a percentage ownership of the company managed via a DAO which is not set up yet. The strategy is to implement the system on the chain and then do the distribution. The application already supports earning of the Memory Access Tokens (MATs) which can be redeemed for AI training credits. 
 
 Rewards Model (Incentives):
 
@@ -105,7 +103,7 @@ For v1 AI Coins, bonding curves are the same for each creator's coins and use th
 
 <p align="center">
 <img src="figures/bonding-curve.png" alt="drawing" width="400"/><br/>
-Figure: v1 AI Coin bonding curve <sup><a href="#links">link</a></sup><br/>
+Figure: v1 AI Coin bonding curve <sup><a href="#links">1</a></sup><br/>
 y-axis: price in MATs, x-axis: AI Coin supply (in 10 thousands)
 </p>
 
@@ -143,11 +141,11 @@ To calculate the price of any swap between two given supply points, we can take 
 
 ### Smart Contracts Overview
 
-Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup><a href="#links">link</a></sup>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
+Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup><a href="#links">2</a></sup>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
 
 #### MATERC20
 
-MATs are implemented as an ERC20 fungible token inheriting the OpenZeppelin ERC20PresetMinterPauser template<sup><a href="#links">link</a></sup>. This preset provides external methods for minting/burning tokens that are used to control the supply of MATs. When users earn MATs through engagement, new MAT tokens are minted to their wallets. In this manner, the MATERC20 smart contract can be used to track the total suppply of tokens in the entire Personal AI ecosystem.
+MATs are implemented as an ERC20 fungible token inheriting the OpenZeppelin ERC20PresetMinterPauser template<sup><a href="#links">3</a></sup>. This preset provides external methods for minting/burning tokens that are used to control the supply of MATs. When users earn MATs through engagement, new MAT tokens are minted to their wallets. In this manner, the MATERC20 smart contract can be used to track the total suppply of tokens in the entire Personal AI ecosystem.
 
 #### PAIMath
 
@@ -231,7 +229,7 @@ contract AIPCoinFactory {
 
 ### Swap Price Calculation
 
-Due to limitations of the Solidity language, some approximations must be made when actually performing swap price calculation on-chain. Solidity uses fixed-point arithmetic by applying a decimal offset to integer values, so calculations are done in integer values that are then scaled by an appropriate factor (specifically by a factor of 10<sup>18</sup>). The parameters a, b, and c must also be appropriately scaled so that the final MATs backed curve is in the correct units. The Babylonian method<sup><a href="#links">link</a></sup> is used to calculate square roots, giving a quadratically convergent and sufficiently accurate algorithm for swap pricing.
+Due to limitations of the Solidity language, some approximations must be made when actually performing swap price calculation on-chain. Solidity uses fixed-point arithmetic by applying a decimal offset to integer values, so calculations are done in integer values that are then scaled by an appropriate factor (specifically by a factor of 10<sup>18</sup>). The parameters a, b, and c must also be appropriately scaled so that the final MATs backed curve is in the correct units. The Babylonian method<sup><a href="#links">4</a></sup> is used to calculate square roots, giving a quadratically convergent and sufficiently accurate algorithm for swap pricing.
 
 In code, it is assumed that s<sub>1</sub> > s<sub>0</sub> to give us strictly positive values from the above swap price formula. For example, the inputs to calculate the buy swap price for amount B starting at supply S would be s<sub>0</sub> = S and s<sub>1</sub> = S + B. To calculate the sell swap price for amount L starting at supply S, set s<sub>0</sub> = S - L and s<sub>1</sub> = S.
 
@@ -283,19 +281,19 @@ function _sellSwap(address seller, address recipient, uint256 amount) private {
 
 ### Ethereum Bridge
 
-Bridging MAT and AI Coin tokens to the Ethereum blockchain is currently in development. While Personal AI's smart contracts are natively implemented on the Matic blockchain, bridging to the Ethereum blockchain allows transfers and trading of the tokens with an even wider user base, connecting with one of the most popular and robust Web3 platforms. Such token bridging will be performed using the Matic PoS Bridge<sup><a href="#links">link</a></sup>.
+Bridging MAT and AI Coin tokens to the Ethereum blockchain is currently in development. While Personal AI's smart contracts are natively implemented on the Matic blockchain, bridging to the Ethereum blockchain allows transfers and trading of the tokens with an even wider user base, connecting with one of the most popular and robust Web3 platforms. Such token bridging will be performed using the Matic PoS Bridge<sup><a href="#links">5</a></sup>.
 
 ## Security
 
-Personal AI partners with Oasis Labs<sup><a href="#links">link</a></sup> to bring decentralized identity, data privacy, and data control—secured by blockchain—to users.
+Personal AI partners with Oasis Labs<sup><a href="#links">6</a></sup> to bring decentralized identity, data privacy, and data control—secured by blockchain—to users.
 
 ### Custodial Wallets
 
-Personal AI's custodial wallet system is built using Oasis Parcel<sup><a href="#links">link</a></sup>. Users' private keys are stored in secure Parcel Documents whose access is governed by user-controlled permissions. Personal AI can only read user keys that it has been granted permission to use. This way, users maintain full ownership of their assets within the Personal AI ecosystem.
+Personal AI's custodial wallet system is built using Oasis Parcel. Users' private keys are stored in secure Parcel Documents whose access is governed by user-controlled permissions. Personal AI can only read user keys that it has been granted permission to use. This way, users maintain full ownership of their assets within the Personal AI ecosystem.
 
 ### AI Access
 
-[TODO: Analysis of possible attack vectors of various smart contracts]
+[Currently in development]
 
 ## Use Cases
 

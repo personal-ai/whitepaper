@@ -141,7 +141,7 @@ To calculate the price of any swap between two given supply points, we can take 
 
 ### Smart Contracts Overview
 
-Personal AI's AI Coin creator economy is implemented on the Matic blockchain<sup><a href="#links">2</a></sup>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
+Personal AI's AI Coin creator economy is implemented on the Oasis Emerald ParaTime<sup><a href="#links">2</a></sup>, chosen for its low transaction fees and capability to bridge tokens to the Ethereum blockchain. There are four smart contract modules (written in Solidity), covered below.
 
 #### MATERC20
 
@@ -281,11 +281,11 @@ function _sellSwap(address seller, address recipient, uint256 amount) private {
 
 ### Ethereum Bridge
 
-Bridging MAT and AI Coin tokens to the Ethereum blockchain is currently in development. While Personal AI's smart contracts are natively implemented on the Matic blockchain, bridging to the Ethereum blockchain allows transfers and trading of the tokens with an even wider user base, connecting with one of the most popular and robust Web3 platforms. Such token bridging will be performed using the Matic PoS Bridge<sup><a href="#links">5</a></sup>.
+While Personal AI's smart contracts are natively implemented on the Emerald ParaTime, we aim to allow MAT and AI Coin tokens to also be bridged to other major chains such as Ethereum. Bridging from Emerald to Ethereum is currently under development.
 
 ## Security
 
-Personal AI partners with Oasis Labs<sup><a href="#links">6</a></sup> to bring decentralized identity, data privacy, and data control—secured by blockchain—to users.
+Personal AI partners with Oasis Labs<sup><a href="#links">5</a></sup> to bring decentralized identity, data privacy, and data control—secured by blockchain—to users.
 
 ### Custodial Wallets
 
@@ -353,8 +353,7 @@ Personal AI is a true reflection of an individual human and billions of Personal
 ## Links
 
 1. Play with bonding curve parrameteres here: https://www.desmos.com/calculator/iisd4nfnom
-2. Polygon: https://polygon.technology
+2. Emerald ParaTime: https://docs.oasis.dev/general/developer-resources/emerald-paratime/
 3. OpenZeppelin ERC20PresetMinterPauser documentation: https://docs.openzeppelin.com/contracts/3.x/api/presets#ERC20PresetMinterPauser
 4. Description of the Babylonian method for calculating square roots: https://en.wikipedia.org/wiki/Methods_of_computing_square_roots#Babylonian_method
-5. Matic PoS Bridge documentation: https://docs.matic.today/docs/develop/ethereum-matic/pos/getting-started
-6. Oasis Labs: https://www.oasislabs.com/
+5. Oasis Labs: https://www.oasislabs.com/
